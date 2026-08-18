@@ -23,6 +23,7 @@ import "./MonacoInstance.scss";
 export const MonacoInstance = forwardRef(({ onSelectAbstraction, onContentChange }, ref) => {
         const { state, setUpdatedContent } = useEditor();
         const [showEditor, setShowEditor] = useState(false);
+        const [readOnlyEditor, setReadOnlyEditor] = useState(false);
         const activeTabRef = useRef(state.activeTab);
         
         const [overlayDivs, setOverlayDivs] = useState();
@@ -40,6 +41,7 @@ export const MonacoInstance = forwardRef(({ onSelectAbstraction, onContentChange
                 shouldUpdateContentRef.current = false;
                 activeTabRef.current = state.activeTab;
                 editorRef.current && editorRef.current.setModel(getModel(state.activeTab));
+                setReadOnlyEditor("readOnly" in state.activeTab? state.activeTab?.readOnly: false);
                 updateOverlays();
                 setShowEditor(true);
                 shouldUpdateContentRef.current = true;
@@ -212,6 +214,7 @@ export const MonacoInstance = forwardRef(({ onSelectAbstraction, onContentChange
                     options={{
                         minimap: { enabled: false },
                         padding: { top: 10 },
+                        readOnly: readOnlyEditor,
                         renderWhitespace: "none",
                         wordWrap: "on",
                         scrollBeyondLastLine: false,
