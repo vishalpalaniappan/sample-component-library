@@ -80,7 +80,7 @@ export const TreeNode = ({ id, parentId, node }) => {
     return (
         <div className="file-node-row" ref={setNodeRef} {...listeners} {...attributes} 
             style={getRowStyle()} onClick={onSelectRow}>
-            <div className="indent" style={{ width: node.level * INDENT_WIDTH + "px" }} />
+            <div className="indent" style={{ minWidth: node.level * INDENT_WIDTH + "px" }} />
             {
                 node.type === "folder" ?
                     <span className="folder-icon">{getCollapsedIcon()}</span> :
