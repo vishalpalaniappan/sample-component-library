@@ -25,7 +25,7 @@
         "uid": "dir-cbb97582-e3da-403e-aa7f-a524a5a7cff7",
         "children": [
             {
-                "name": "FrenchTranslator.py",
+                "name": "FrenchTranslator.py-FrenchTranslator.py-FrenchTranslator.py-FrenchTranslator.py",
                 "type": "file",
                 "uid": "dir-516008b2-e80c-4a3a-bb00-d651885ac15d",
                 "content": "import threading\nimport queue\nfrom deep_translator import GoogleTranslator # type: ignore\n\nclass FrenchTranslator(threading.Thread):\n    def __init__(self, id, queue, packerQueue):\n        super().__init__(daemon=True)\n        self.queue = queue\n        self.id = id\n        self.packerQueue = packerQueue\n        self.start()\n\n    def run(self):\n        while True:\n            try:\n                job = self.queue.get(timeout=10)\n            except queue.Empty:\n                continue\n\n            translatedMsg = GoogleTranslator(source=\"auto\", target=\"french\").translate(job[\"value\"][\"data\"])\n            self.packerQueue.put({\n                \"uid\": job[\"uid\"],\n                \"value\": {\n                    \"language\": \"french\",\n                    \"original\": job[\"value\"][\"data\"],\n                    \"translated\": translatedMsg\n                }\n            })"

@@ -102,7 +102,18 @@ export const BehavioralGraphBuilder = forwardRef(({connectBehaviors, deleteTrans
                 maxHeight={height}
                 selections={selections}
                 onNodeLink={nodeLink}
-                node={ <Node onClick={nodeClick} onRemove={nodeRemove} /> }
+                node={(nodeProps) => (
+                    <Node
+                        {...nodeProps}
+                        onClick={nodeClick}
+                        onRemove={nodeRemove}
+                        style={{
+                            fill: nodeProps.properties.data?.color,
+                            stroke: nodeProps.properties.data?.borderColor,
+                            strokeWidth: 2
+                        }}
+                    />
+                )}
                 edge={ <Edge onClick={edgeClick} onRemove={edgeRemove}/> }
                 onCanvasClick={canvasClick}
             />
