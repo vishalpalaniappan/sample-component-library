@@ -11,7 +11,7 @@ import "./BehavioralGraphBuilder.scss";
  * 
  * @return {JSX}
  */
-export const BehavioralGraphBuilder = forwardRef(({connectBehaviors, deleteTransition, deleteBehavior, selectBehavior}, ref) => {
+export const BehavioralGraphBuilder = forwardRef(({connectBehaviors, deleteTransition, deleteBehavior, selectBehavior, width, height}, ref) => {
     const canvasRef = useRef();
 
     // Resizer to set canvas size to match container
@@ -98,9 +98,22 @@ export const BehavioralGraphBuilder = forwardRef(({connectBehaviors, deleteTrans
                 edges={edges}
                 width={size.width}
                 height={size.height}
+                maxWidth={width}
+                maxHeight={height}
                 selections={selections}
                 onNodeLink={nodeLink}
-                node={ <Node onClick={nodeClick} onRemove={nodeRemove} /> }
+                node={(nodeProps) => (
+                    <Node
+                        {...nodeProps}
+                        onClick={nodeClick}
+                        onRemove={nodeRemove}
+                        style={{
+                            fill: nodeProps.properties.data?.color,
+                            stroke: nodeProps.properties.data?.borderColor,
+                            strokeWidth: 2
+                        }}
+                    />
+                )}
                 edge={ <Edge onClick={edgeClick} onRemove={edgeRemove}/> }
                 onCanvasClick={canvasClick}
             />

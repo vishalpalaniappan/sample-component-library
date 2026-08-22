@@ -50,7 +50,7 @@ const Template = (args) => {
 
     useEffect(() => {
         if (editorRef.current) {
-            const engine = new DALEngine({ name: "testEngine" });
+            const engine = new DALEngine({ name: "testEngine", description: "" });
             setEngine(engine);
             editorRef.current.updateEngine(engine);
             const timerId = setTimeout(() => {
@@ -111,6 +111,8 @@ const Template = (args) => {
                     deleteTransition={deleteTransition}
                     deleteBehavior={deleteBehavior}
                     selectBehavior={selectBehavior}
+                    width={6000}
+                    height={6000}
                 />
             </div>
         </div>
