@@ -10,9 +10,23 @@ export const designToNodes = (engine) => {
 
     for (let i = 0; i < engine.graph.nodes.length; i++) {
         const node = engine.graph.nodes[i];
-        nodes.push({
+
+        // This is hardcoded for now for the text "inv"
+        // I will make this dynamic later, it should not
+        // be hardcoded.
+        let color = "#2b2c3e"
+        let strokeColor =  '#43516a';
+        if (node.getBehavior().getName().includes("inv")) {
+            color = "#151516";
+            strokeColor = "#252525";
+        }
+        nodes.push({    
             id: node.getBehavior().getName(),
             text: node.getBehavior().getName(),
+            data: {
+                color: color,
+                borderColor: strokeColor
+            }
         });
     }
     
